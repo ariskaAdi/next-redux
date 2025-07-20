@@ -20,6 +20,11 @@ const CounterPage = () => {
           </button>
           <button
             className="font-bold items-center bg-amber-100 p-4 rounded-2xl"
+            onClick={() => dispatch(increment(2))}>
+            increment+2
+          </button>
+          <button
+            className="font-bold items-center bg-amber-100 p-4 rounded-2xl"
             onClick={() => dispatch(decrement())}>
             decrement
           </button>

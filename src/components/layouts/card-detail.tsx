@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import CardProduct from "../fragments/card/Card";
 import { getProductById } from "@/services/ProductService";
+import CartProduct from "./cart-products";
 
 const DetailCard = () => {
   const { id: productId } = useParams();
@@ -42,6 +43,7 @@ const DetailCard = () => {
           category={value.category}
         />
       )}
+      <CartProduct />
     </div>
   );
 };

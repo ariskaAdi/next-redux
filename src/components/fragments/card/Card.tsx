@@ -3,8 +3,12 @@ import { Idata } from "@/types/data";
 import Link from "next/link";
 import React from "react";
 
-const CardProduct = (props: Idata) => {
-  const { id, title, price, description, image, rating } = props;
+interface CardProductProps extends Idata {
+  actionElement?: React.ReactNode;
+}
+
+const CardProduct = (props: CardProductProps) => {
+  const { id, title, price, description, image, rating, actionElement } = props;
   return (
     <div key={id} className="max-w-xs border-2 border-gray-200 rounded-lg ">
       <Link href={`/products/${id}`}>
@@ -21,10 +25,10 @@ const CardProduct = (props: Idata) => {
             </p>
           </div>
         </div>
-        <button className="w-full p-2 bg-black text-white rounded-b-lg">
-          Add to cart
-        </button>
       </Link>
+      {actionElement && (
+        <div className="p-4 border-t mt-auto">{actionElement}</div>
+      )}
     </div>
   );
 };
