@@ -1,5 +1,3 @@
-"use server";
-
 import { Idata } from "@/types/data";
 import axios from "axios";
 

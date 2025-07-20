@@ -1,39 +1,16 @@
 "use client";
 
 import { Idata } from "@/types/data";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CardProduct from "../fragments/card/Card";
-import { getAllProducts } from "@/services/ProductService";
 import { useDispatch } from "react-redux";
 import { addItem } from "@/redux/slices/cartSlice";
+import { useProducts } from "@/hooks/useProducts";
 
 const Card = () => {
-  const [isLoading, setLoading] = useState(true);
-  const [isProducts, setProducts] = useState<Idata[]>([]);
+  const { data, isLoading, isError } = useProducts();
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const products = await getAllProducts();
-        setProducts(products);
-
-        const initialQuantity: Record<string, number> = {};
-        products.forEach((item) => {
-          initialQuantity[item.id] = 1;
-        });
-        setQuantities(initialQuantity);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const handleQuantityChange = (id: number, value: number) => {
     setQuantities((prevQuantity) => ({
@@ -43,7 +20,8 @@ const Card = () => {
   };
 
   const handleToCart = (item: Idata) => {
-    const quantity = quantities[item.id];
+    const quantity = quantities[item.id] || 1;
+    if (quantity <= 0) return;
 
     dispatch(
       addItem({
@@ -55,10 +33,12 @@ const Card = () => {
     );
   };
 
+  if (isLoading) return <p>Loading...</p>;
+  if (isError || !data) return <p>Something went wrong</p>;
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {isLoading && <p>Loading...</p>}
-      {isProducts.map((item) => (
+      {data.map((item) => (
         <CardProduct
           id={item.id}
           key={item.id}
