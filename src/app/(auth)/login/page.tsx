@@ -1,13 +1,13 @@
-import Home from "@/components/pages/Home";
+import Login from "@/components/pages/Login";
 import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: "Login Page",
 };
 
 const page = () => {
-  return <Home />;
+  return <Login />;
 };
 
 export default page;
