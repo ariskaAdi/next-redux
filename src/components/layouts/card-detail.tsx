@@ -27,7 +27,6 @@ const DetailCard = () => {
           category={data.category}
         />
       )}
-      <CartProduct />
     </div>
   );
 };

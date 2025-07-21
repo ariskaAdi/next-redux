@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Button from "../elements/Button/Button";
 import { useLoginUser } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { loginAuth } from "@/redux/slices/authSlice";
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -12,6 +14,7 @@ const Login = () => {
   });
 
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const { mutate: login, isPending, isError } = useLoginUser();
 
@@ -26,6 +29,7 @@ const Login = () => {
         onSuccess: (data) => {
           console.log(data);
           localStorage.setItem("token", data.token);
+          dispatch(loginAuth({ token: data.token }));
           router.push("/");
         },
         onError: (error) => {

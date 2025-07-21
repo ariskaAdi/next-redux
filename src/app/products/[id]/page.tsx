@@ -1,10 +1,10 @@
-import DetailCard from "@/components/layouts/card-detail";
+import DetailProduct from "@/components/pages/Detail-Product";
 import React from "react";
 
 const page = () => {
   return (
     <div>
-      <DetailCard />
+      <DetailProduct />
     </div>
   );
 };
