@@ -2,7 +2,6 @@
 
 import { useParams } from "next/navigation";
 import CardProduct from "../fragments/card/Card";
-import CartProduct from "./cart-products";
 import { useProductById } from "@/hooks/useProducts";
 
 const DetailCard = () => {

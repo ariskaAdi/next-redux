@@ -26,6 +26,8 @@ export const authSlice = createSlice({
       try {
         const decodedToken = jwtDecode<DecodedToken>(action.payload.token);
         state.user = decodedToken;
+        localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("user", JSON.stringify(decodedToken));
       } catch (error) {
         console.log(error, "invalid token");
         state.user = null;
